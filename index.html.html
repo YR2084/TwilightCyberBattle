@@ -14,9 +14,9 @@
       font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
       background-color: #050505;
       background-image:
-        linear-gradient(rgba(57, 255, 20, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(57, 255, 20, 0.035) 1px, transparent 1px),
-        linear-gradient(180deg, #050505, #0b0f0b 60%, #050505);
+        linear-gradient(rgba(86, 180, 233, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(86, 180, 233, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, #050505, #0a0d12 60%, #050505);
       background-size: 24px 24px, 24px 24px, auto;
       background-attachment: scroll;
       background-position: center;
@@ -36,7 +36,7 @@
       padding: 16px;
       background: rgba(0, 0, 0, 0.72);
       border: 1px solid #1c1c1c;
-      border-left: 4px solid #39ff14;
+      border-left: 4px solid #56B4E9;
     }
     h1.title {
       position: absolute;
@@ -65,14 +65,14 @@
       background: #000;
       padding: 18px 20px;
       border: 1px solid #1a1a1a;
-      border-left: 4px solid #39ff14;
+      border-left: 4px solid #56B4E9;
       text-align: left;
       font-size: 0.93rem;
       color: #cfcfcf;
     }
     .synopsis h2 {
       font-size: 0.85rem;
-      color: #39ff14;
+      color: #56B4E9;
       margin-bottom: 8px;
       letter-spacing: 0.16em;
       font-family: "Courier New", Consolas, monospace;
@@ -83,16 +83,16 @@
     }
     .section-title {
       font-size: 1.35rem;
-      color: #39ff14;
+      color: #56B4E9;
       text-align: center;
       margin-bottom: 8px;
       letter-spacing: 0.28em;
-      text-shadow: 0 0 10px rgba(57, 255, 20, 0.45);
+      text-shadow: 0 0 10px rgba(86, 180, 233, 0.45);
       font-family: "Courier New", Consolas, monospace;
     }
     .section-sub {
       text-align: center;
-      color: #6a6a6a;
+      color: #b0b0b0;
       font-size: 0.72rem;
       letter-spacing: 0.18em;
       margin-bottom: 22px;
@@ -104,19 +104,19 @@
       padding: 6px 10px;
       background: #000;
       border: 1px solid #1a1a1a;
-      border-left: 3px solid #39ff14;
-      color: #39ff14;
+      border-left: 3px solid #56B4E9;
+      color: #56B4E9;
       font-size: 0.78rem;
       letter-spacing: 0.2em;
       font-family: "Courier New", Consolas, monospace;
     }
     .faction-title.hostile {
-      border-left-color: #9aff4a;
-      color: #b6ff7a;
+      border-left-color: #E69F00;
+      color: #E69F00;
     }
     .faction-title.support {
-      border-left-color: #6dff6d;
-      color: #9dff9d;
+      border-left-color: #F0E442;
+      color: #F0E442;
     }
     .card-grid {
       display: grid;
@@ -125,9 +125,9 @@
     }
 
     .card {
-      --neon: #39ff14;
+      --neon: #56B4E9;
       background:
-        linear-gradient(180deg, rgba(57, 255, 20, 0.04), transparent 28%),
+        linear-gradient(180deg, rgba(86, 180, 233, 0.06), transparent 28%),
         repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0 1px, transparent 1px 3px),
         #070707;
       border: 1px solid #1a1a1a;
@@ -142,10 +142,10 @@
       overflow: hidden;
     }
     .card.hostile {
-      --neon: #b8ff2a;
+      --neon: #E69F00;
     }
     .card.support {
-      --neon: #6eff6e;
+      --neon: #F0E442;
     }
     .card::before,
     .card::after {
@@ -172,7 +172,7 @@
     .card:hover {
       transform: translateY(-3px);
       border-color: var(--neon);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.65), 0 0 16px rgba(57, 255, 20, 0.18);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.65), 0 0 16px rgba(86, 180, 233, 0.22);
     }
 
     .card-top {
@@ -205,7 +205,7 @@
       width: 62px;
       height: 78px;
       background:
-        linear-gradient(180deg, rgba(57, 255, 20, 0.08), rgba(0, 0, 0, 0.2)),
+        linear-gradient(180deg, rgba(86, 180, 233, 0.10), rgba(0, 0, 0, 0.2)),
         #0a0a0a;
       border: 1px solid #222;
       border-bottom: 2px solid var(--neon);
@@ -267,7 +267,7 @@
       color: var(--neon);
       margin-bottom: 6px;
       letter-spacing: 0.08em;
-      text-shadow: 0 0 8px rgba(57, 255, 20, 0.28);
+      text-shadow: 0 0 8px rgba(86, 180, 233, 0.35);
     }
     .char-comment {
       font-size: 0.8rem;
@@ -289,6 +289,25 @@
       }
     }
   
+
+    .card.support .tag,
+    .faction-title.support {
+      color: #111;
+    }
+    .faction-title.support {
+      background: #F0E442;
+      border-left-color: #000;
+    }
+    .card.support .char-role,
+    .card.support .card-top,
+    .card.support .photo-box span {
+      color: #F0E442;
+      text-shadow: none;
+    }
+    .card.hostile .tag {
+      color: #111;
+    }
+
   
   
     .unit-block {
@@ -306,34 +325,33 @@
       font-family: "Courier New", Consolas, monospace;
     }
     .unit-code {
-      color: #071407;
-      background: #39ff14;
+      color: #071018;
+      background: #56B4E9;
       padding: 2px 8px;
       font-size: 0.72rem;
       letter-spacing: 0.12em;
     }
     .unit-name {
-      color: #39ff14;
+      color: #56B4E9;
       letter-spacing: 0.18em;
       font-size: 1rem;
     }
     .unit-count {
       margin-left: auto;
-      color: #777;
+      color: #b0b0b0;
       font-size: 0.68rem;
       letter-spacing: 0.12em;
     }
     .unit-block .card-grid {
       padding: 12px;
     }
-    .unit-block.intel { border-color: #2a2a2a; }
-    .unit-block.intel .unit-code { background: #d0ff4a; }
-    .unit-block.intel .unit-name { color: #d0ff4a; }
-    .card.intel { --neon: #d0ff4a; }
-    .unit-block.hostile .unit-code { background: #b8ff2a; }
-    .unit-block.hostile .unit-name { color: #b8ff2a; }
-    .unit-block.support .unit-code { background: #6eff6e; color: #071407; }
-    .unit-block.support .unit-name { color: #9dff9d; }
+    .unit-block.intel .unit-code { background: #0072B2; color: #fff; }
+    .unit-block.intel .unit-name { color: #56B4E9; }
+    .card.intel { --neon: #0072B2; }
+    .unit-block.hostile .unit-code { background: #E69F00; color: #111; }
+    .unit-block.hostile .unit-name { color: #E69F00; }
+    .unit-block.support .unit-code { background: #F0E442; color: #111; }
+    .unit-block.support .unit-name { color: #F0E442; }
   
     .char-name {
       display: flex;
@@ -367,8 +385,8 @@
     .pass-card {
       width: min(520px, 100%);
       background: #050505;
-      border: 2px solid #39ff14;
-      box-shadow: 0 0 28px rgba(57,255,20,0.25);
+      border: 2px solid #56B4E9;
+      box-shadow: 0 0 28px rgba(86,180,233,0.28);
     }
     .pass-top {
       display: flex;
@@ -376,7 +394,7 @@
       padding: 8px 12px;
       background: #000;
       border-bottom: 1px solid #222;
-      color: #39ff14;
+      color: #56B4E9;
       font-family: "Courier New", Consolas, monospace;
       font-size: 0.72rem;
       letter-spacing: 0.14em;
@@ -392,7 +410,7 @@
       flex-shrink: 0;
       background: #000;
       border: 1px solid #222;
-      border-bottom: 2px solid #39ff14;
+      border-bottom: 2px solid #56B4E9;
       text-align: center;
     }
     .pass-photo img {
@@ -405,7 +423,7 @@
     }
     .pass-photo span {
       display: block;
-      color: #39ff14;
+      color: #56B4E9;
       font-size: 0.65rem;
       letter-spacing: 0.12em;
       padding: 4px 0;
@@ -416,7 +434,7 @@
       flex: 1;
     }
     .pass-kicker {
-      color: #39ff14;
+      color: #56B4E9;
       font-size: 0.75rem;
       letter-spacing: 0.16em;
       font-family: "Courier New", Consolas, monospace;
@@ -429,7 +447,7 @@
       margin-bottom: 2px;
     }
     .pass-role {
-      color: #39ff14;
+      color: #56B4E9;
       font-size: 0.82rem;
       margin-bottom: 10px;
     }
@@ -453,7 +471,7 @@
       letter-spacing: 0.08em;
     }
     #visitor-id {
-      color: #39ff14;
+      color: #56B4E9;
       font-weight: bold;
     }
     .pass-note {
@@ -465,9 +483,9 @@
       width: calc(100% - 24px);
       margin: 8px 12px 14px;
       padding: 10px 12px;
-      border: 1px solid #39ff14;
-      background: #39ff14;
-      color: #071407;
+      border: 1px solid #56B4E9;
+      background: #56B4E9;
+      color: #071018;
       font-weight: bold;
       letter-spacing: 0.14em;
       cursor: pointer;
@@ -481,7 +499,7 @@
       margin: 0 0 18px;
       font-family: "Courier New", Consolas, monospace;
       font-size: 0.78rem;
-      color: #39ff14;
+      color: #56B4E9;
       letter-spacing: 0.12em;
     }
   </style>
