@@ -1,310 +1,896 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>黄昏の仮想戦争 トレーラー ver1</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Noto+Sans+JP:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#0a0908;
-  --cream:#eee7d6;
-  --gold:#b8912f;
-  --gold-bright:#d9b45a;
-  --wine:#7a1f22;
-  --wine-bright:#a53232;
-}
-*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-html,body{
-  margin:0; padding:0; height:100%; width:100%;
-  background:#000; overflow:hidden;
-  font-family:'Noto Sans JP', sans-serif;
-  color:var(--cream);
-  user-select:none;
-}
-#stage{
-  position:relative;
-  width:100%; height:100vh; height:100dvh;
-  background:#000;
-  overflow:hidden;
-}
-.bar{
-  position:absolute; left:0; right:0; height:6.4vh; background:#000; z-index:40;
-  pointer-events:none;
-}
-.bar.top{top:0; border-bottom:1px solid rgba(184,145,47,0.35);}
-.bar.bottom{bottom:0; border-top:1px solid rgba(184,145,47,0.35);}
-.vignette{
-  position:absolute; inset:0; z-index:30; pointer-events:none;
-  background:radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
-}
-.grain{
-  position:absolute; inset:0; z-index:31; pointer-events:none; opacity:0.10; mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-}
-.slide{ position:absolute; inset:0; opacity:0; transition:opacity 900ms ease; z-index:1; }
-.slide.active{ opacity:1; z-index:2; }
-.slide .photo-wrap{ position:absolute; inset:0; overflow:hidden; background:#000; }
-.slide img{
-  position:absolute; top:50%; left:50%;
-  height:118%; width:118%;
-  object-fit:cover;
-  transform:translate(-50%,-50%) scale(1.06);
-  filter:saturate(0.86) contrast(1.08) brightness(0.86) sepia(0.08);
-}
-.slide.active img{ animation:kb 6.6s ease-out forwards; }
-.slide.kb-a.active img{ animation-name:kbA; }
-.slide.kb-b.active img{ animation-name:kbB; }
-.slide.kb-c.active img{ animation-name:kbC; }
-@keyframes kbA{ 0%{ transform:translate(-50%,-50%) scale(1.12); } 100%{ transform:translate(-52%,-46%) scale(1.28); } }
-@keyframes kbB{ 0%{ transform:translate(-50%,-50%) scale(1.28); } 100%{ transform:translate(-48%,-54%) scale(1.10); } }
-@keyframes kbC{ 0%{ transform:translate(-50%,-50%) scale(1.1); } 100%{ transform:translate(-46%,-50%) scale(1.24); } }
-.photo-shade{
-  position:absolute; inset:0;
-  background:linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0.35) 100%);
-}
-.cap-wrap{ position:absolute; left:0; right:0; bottom:11vh; z-index:5; padding:0 7vw; text-align:left; }
-.cap-line{
-  display:block; height:2px; width:11vw; background:var(--gold-bright);
-  margin-bottom:1.6vh; transform:scaleX(0); transform-origin:left; animation:grow 700ms ease forwards 380ms;
-}
-@keyframes grow{ to{ transform:scaleX(1); } }
-.cap-en{
-  font-family:'Noto Sans JP', sans-serif; font-weight:300; letter-spacing:0.32em; font-size:2.6vw;
-  color:var(--gold-bright); opacity:0; text-transform:uppercase;
-  animation:fadeUp 700ms ease forwards 260ms;
-}
-.cap-jp{
-  font-family:'Shippori Mincho B1', serif; font-weight:800;
-  font-size:7.6vw; line-height:1.15; margin-top:0.8vh;
-  color:var(--cream); text-shadow:0 2px 18px rgba(0,0,0,0.7);
-  opacity:0; animation:fadeUp 800ms ease forwards 460ms;
-}
-@keyframes fadeUp{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
-.title-card{
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  background:#050403; text-align:center; padding:0 8vw;
-}
-.title-card::before{
-  content:""; position:absolute; inset:0;
-  background: radial-gradient(ellipse at 50% 40%, rgba(122,31,34,0.20), transparent 60%);
-}
-.tc-inner{ position:relative; z-index:2; }
-.tc-eyebrow{
-  font-family:'Noto Sans JP',sans-serif; font-weight:300; letter-spacing:0.5em;
-  font-size:3.1vw; color:var(--gold); opacity:0; animation:fadeUp 900ms ease forwards 200ms;
-}
-.tc-main{
-  font-family:'Shippori Mincho B1', serif; font-weight:800;
-  font-size:11vw; line-height:1.25; color:var(--cream); margin-top:2.2vh;
-  opacity:0; animation:fadeUp 1000ms ease forwards 450ms;
-}
-.tc-main .accent{ color:var(--wine-bright); }
-.tc-sub{
-  margin-top:2.6vh; font-family:'Noto Sans JP',sans-serif; font-weight:300;
-  font-size:3.4vw; letter-spacing:0.14em; color:var(--cream);
-  opacity:0; animation:fadeUp 900ms ease forwards 750ms;
-}
-.tc-rule{
-  width:22vw; height:1px; background:linear-gradient(to right, transparent, var(--gold-bright), transparent);
-  margin:3vh auto 0; opacity:0; animation:fadeUp 900ms ease forwards 650ms;
-}
-.finale .tc-main{ font-size:9.5vw; }
-.finale .tc-foot{
-  margin-top:5vh; font-family:'Noto Sans JP',sans-serif; font-weight:400;
-  font-size:3.1vw; letter-spacing:0.08em; color:var(--gold-bright); opacity:0;
-  animation:fadeUp 900ms ease forwards 1000ms;
-}
-#progress-row{
-  position:absolute; left:7vw; right:7vw; bottom:5.6vh; z-index:40;
-  display:flex; gap:1.4vw;
-}
-.seg{ flex:1; height:2px; background:rgba(238,231,214,0.22); position:relative; overflow:hidden; border-radius:1px; }
-.seg i{ position:absolute; left:0; top:0; bottom:0; width:0%; background:var(--gold-bright); display:block; }
-.seg.done i{ width:100%; }
-.seg.now i{ animation:fillbar linear forwards; }
-@keyframes fillbar{ from{width:0%;} to{width:100%;} }
-#tapzone{ position:absolute; inset:0; z-index:50; }
-#startcard{
-  position:absolute; inset:0; z-index:100; background:#050403;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-  padding:0 9vw;
-}
-#startcard .st-eyebrow{ font-size:3.2vw; letter-spacing:0.5em; color:var(--gold); font-weight:300; }
-#startcard .st-title{ font-family:'Shippori Mincho B1',serif; font-weight:800; font-size:10vw; margin:3vh 0 1vh; }
-#startcard .st-title .accent{ color:var(--wine-bright); }
-#startcard .st-desc{ font-size:3.2vw; opacity:0.75; letter-spacing:0.05em; margin-bottom:5vh; }
-#startBtn{
-  border:1px solid var(--gold-bright); color:var(--gold-bright); background:transparent;
-  font-family:'Noto Sans JP',sans-serif; font-size:3.6vw; letter-spacing:0.3em;
-  padding:2.2vh 8vw; border-radius:2px; cursor:pointer;
-}
-#startBtn:active{ background:rgba(217,180,90,0.12); }
-#muteHint{
-  position:absolute; top:2.4vh; right:5vw; z-index:41; font-size:2.6vw; color:rgba(238,231,214,0.55);
-  letter-spacing:0.1em; pointer-events:none;
-}
-@media (min-width:640px){
-  .cap-jp{ font-size:3.4rem; }
-  .cap-en{ font-size:0.9rem; }
-  .tc-main{ font-size:3.6rem; }
-  .tc-eyebrow{ font-size:1rem; }
-  .tc-sub{ font-size:1.1rem; }
-  #startcard .st-title{ font-size:3.4rem; }
-  #startcard .st-eyebrow, #startcard .st-desc{ font-size:1rem; }
-  #startBtn{ font-size:1.1rem; padding:1.4vh 3vw; }
-  .finale .tc-main{ font-size:3rem; }
-  .finale .tc-foot{ font-size:1rem; }
-}
-#backBtn{
-  position:absolute; top:1.8vh; left:5vw; z-index:110;
-  border:1px solid rgba(217,180,90,0.7); color:var(--gold-bright); background:transparent;
-  font-family:'Noto Sans JP',sans-serif; font-size:2.6vw; letter-spacing:0.18em;
-  padding:0.8vh 2.4vw; cursor:pointer;
-}
-@media (min-width:640px){
-  #backBtn{ font-size:0.85rem; padding:0.6vh 1.2vw; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>黄昏の仮想戦争 - 文化祭公演特設サイト</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+      background-color: #050505;
+      background-image:
+        linear-gradient(rgba(86, 180, 233, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(86, 180, 233, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, #050505, #0a0d12 60%, #050505);
+      background-size: 24px 24px, 24px 24px, auto;
+      background-attachment: scroll;
+      background-position: center;
+      background-size: 24px 24px, 24px 24px, auto;
+      color: #d7d7d7;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 42px;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.72);
+      border: 1px solid #1c1c1c;
+      border-left: 4px solid #56B4E9;
+    }
+    h1.title {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .title-banner {
+      width: 100%;
+      display: block;
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid #1a1a1a;
+    }
+    .title-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .synopsis {
+      background: #000;
+      padding: 18px 20px;
+      border: 1px solid #1a1a1a;
+      border-left: 4px solid #56B4E9;
+      text-align: left;
+      font-size: 0.93rem;
+      color: #cfcfcf;
+    }
+    .synopsis h2 {
+      font-size: 0.85rem;
+      color: #56B4E9;
+      margin-bottom: 8px;
+      letter-spacing: 0.16em;
+      font-family: "Courier New", Consolas, monospace;
+    }
+
+    .character-section {
+      margin-top: 28px;
+    }
+    .section-title {
+      font-size: 1.35rem;
+      color: #56B4E9;
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 0.28em;
+      text-shadow: 0 0 10px rgba(86, 180, 233, 0.45);
+      font-family: "Courier New", Consolas, monospace;
+    }
+    .section-sub {
+      text-align: center;
+      color: #b0b0b0;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      margin-bottom: 22px;
+      font-family: "Courier New", Consolas, monospace;
+    }
+    .faction-title {
+      grid-column: 1 / -1;
+      margin: 10px 0 2px;
+      padding: 6px 10px;
+      background: #000;
+      border: 1px solid #1a1a1a;
+      border-left: 3px solid #56B4E9;
+      color: #56B4E9;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      font-family: "Courier New", Consolas, monospace;
+    }
+    .faction-title.hostile {
+      border-left-color: #E69F00;
+      color: #E69F00;
+    }
+    .faction-title.support {
+      border-left-color: #F0E442;
+      color: #F0E442;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      --neon: #56B4E9;
+      background:
+        linear-gradient(180deg, rgba(86, 180, 233, 0.06), transparent 28%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0 1px, transparent 1px 3px),
+        #070707;
+      border: 1px solid #1a1a1a;
+      border-left: 4px solid var(--neon);
+      border-radius: 0;
+      padding: 0;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card.hostile {
+      --neon: #E69F00;
+    }
+    .card.support {
+      --neon: #F0E442;
+    }
+    .card::before,
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border: 1px solid var(--neon);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    .card::before {
+      top: 5px;
+      right: 5px;
+      border-left: none;
+      border-bottom: none;
+    }
+    .card::after {
+      bottom: 5px;
+      left: 9px;
+      border-right: none;
+      border-top: none;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--neon);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.65), 0 0 16px rgba(86, 180, 233, 0.22);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 10px;
+      background: #000;
+      border-bottom: 1px solid #1c1c1c;
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.12em;
+      color: var(--neon);
+    }
+    .card-body {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .photo-container {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .photo-box {
+      width: 62px;
+      height: 78px;
+      background:
+        linear-gradient(180deg, rgba(86, 180, 233, 0.10), rgba(0, 0, 0, 0.2)),
+        #0a0a0a;
+      border: 1px solid #222;
+      border-bottom: 2px solid var(--neon);
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      color: #5a5a5a;
+      font-size: 0.58rem;
+      overflow: hidden;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .photo-box span {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.78);
+      color: var(--neon);
+      padding: 2px 0;
+      letter-spacing: 0.08em;
+      font-family: "Courier New", Consolas, monospace;
+    }
+    .photo-box {
+      position: relative;
+    }
+    .photo-box img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: none;
+    }
+    .photo-box span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+    }
+
+    .char-info {
+      text-align: left;
+      flex: 1;
+      min-width: 0;
+    }
+    .char-meta {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .tag {
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      color: #071407;
+      background: var(--neon);
+      padding: 1px 5px;
+    }
+    .char-name {
+      font-size: 1.12rem;
+      font-weight: bold;
+      color: #f3f3f3;
+      border-bottom: 1px solid #1d1d1d;
+      padding-bottom: 3px;
+      margin-bottom: 4px;
+      letter-spacing: 0.1em;
+    }
+    .char-role {
+      font-size: 0.7rem;
+      color: var(--neon);
+      margin-bottom: 6px;
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 8px rgba(86, 180, 233, 0.35);
+    }
+    .char-comment {
+      font-size: 0.8rem;
+      color: #b5b5b5;
+      background: #000;
+      border: 1px solid #171717;
+      border-left: 2px solid var(--neon);
+      padding: 6px 8px;
+      border-radius: 0;
+      font-style: italic;
+    }
+
+    @media (max-width: 520px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .card-body {
+        flex-wrap: wrap;
+      }
+    }
+  
+
+    .card.support .tag,
+    .faction-title.support {
+      color: #111;
+    }
+    .faction-title.support {
+      background: #F0E442;
+      border-left-color: #000;
+    }
+    .card.support .char-role,
+    .card.support .card-top,
+    .card.support .photo-box span {
+      color: #F0E442;
+      text-shadow: none;
+    }
+    .card.hostile .tag {
+      color: #111;
+    }
+
+  
+  
+    .unit-block {
+      margin: 0 0 22px;
+      border: 1px solid #1a1a1a;
+      background: rgba(0,0,0,0.35);
+    }
+    .unit-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      padding: 10px 12px;
+      background: #000;
+      border-bottom: 1px solid #1a1a1a;
+      font-family: "Courier New", Consolas, monospace;
+    }
+    .unit-code {
+      color: #071018;
+      background: #56B4E9;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+    }
+    .unit-name {
+      color: #56B4E9;
+      letter-spacing: 0.18em;
+      font-size: 1rem;
+    }
+    .unit-count {
+      margin-left: auto;
+      color: #b0b0b0;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+    }
+    .unit-block .card-grid {
+      padding: 12px;
+    }
+    .unit-block.intel .unit-code { background: #0072B2; color: #fff; }
+    .unit-block.intel .unit-name { color: #56B4E9; }
+    .card.intel { --neon: #0072B2; }
+    .unit-block.hostile .unit-code { background: #E69F00; color: #111; }
+    .unit-block.hostile .unit-name { color: #E69F00; }
+    .unit-block.support .unit-code { background: #F0E442; color: #111; }
+    .unit-block.support .unit-name { color: #F0E442; }
+  
+    .char-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .name-logo {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      flex-shrink: 0;
+      background: #000;
+    }
+  
+    body.pass-locked {
+      overflow: hidden;
+    }
+    .pass-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .pass-overlay.is-off {
+      display: none;
+    }
+    .pass-card {
+      width: min(520px, 100%);
+      background: #050505;
+      border: 2px solid #56B4E9;
+      box-shadow: 0 0 28px rgba(86,180,233,0.28);
+    }
+    .pass-top {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: #000;
+      border-bottom: 1px solid #222;
+      color: #56B4E9;
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+    }
+    .pass-body {
+      display: flex;
+      gap: 14px;
+      padding: 16px 14px 10px;
+      align-items: center;
+    }
+    .pass-photo {
+      width: 150px;
+      flex-shrink: 0;
+      background: #000;
+      border: 1px solid #222;
+      border-bottom: 2px solid #56B4E9;
+      text-align: center;
+    }
+    .pass-photo img {
+      width: 100%;
+      height: 150px;
+      object-fit: contain;
+      display: block;
+      background: #000;
+      image-rendering: auto;
+    }
+    .pass-photo span {
+      display: block;
+      color: #56B4E9;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      padding: 4px 0;
+      font-family: "Courier New", Consolas, monospace;
+    }
+    .pass-info {
+      min-width: 0;
+      flex: 1;
+    }
+    .pass-kicker {
+      color: #56B4E9;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      font-family: "Courier New", Consolas, monospace;
+      margin-bottom: 4px;
+    }
+    .pass-name {
+      font-size: 1.45rem;
+      color: #fff;
+      letter-spacing: 0.12em;
+      margin-bottom: 2px;
+    }
+    .pass-role {
+      color: #56B4E9;
+      font-size: 0.82rem;
+      margin-bottom: 10px;
+    }
+    .pass-fields {
+      display: grid;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .pass-fields div {
+      display: flex;
+      gap: 10px;
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 0.78rem;
+    }
+    .pass-fields dt {
+      color: #888;
+      width: 88px;
+    }
+    .pass-fields dd {
+      color: #fff;
+      letter-spacing: 0.08em;
+    }
+    #visitor-id {
+      color: #56B4E9;
+      font-weight: bold;
+    }
+    .pass-note {
+      font-size: 0.75rem;
+      color: #9a9a9a;
+      line-height: 1.5;
+    }
+    .pass-btn {
+      width: calc(100% - 24px);
+      margin: 8px 12px 14px;
+      padding: 10px 12px;
+      border: 1px solid #56B4E9;
+      background: #56B4E9;
+      color: #071018;
+      font-weight: bold;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+    }
+    .pass-btn:hover {
+      filter: brightness(1.08);
+    }
+    .visitor-badge {
+      text-align: center;
+      margin: 0 0 18px;
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 0.78rem;
+      color: #56B4E9;
+      letter-spacing: 0.12em;
+    }
+  
+    .teaser-row {
+      display: flex;
+      justify-content: center;
+      margin: 0 0 16px;
+    }
+    .teaser-btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid #56B4E9;
+      background: #000;
+      color: #56B4E9;
+      text-decoration: none;
+      letter-spacing: 0.16em;
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 0.82rem;
+    }
+    .teaser-btn:hover { background: #56B4E9; color: #071018; }
+  </style>
 </head>
 <body>
-<div id="stage">
-  <div class="bar top"></div>
-  <div class="bar bottom"></div>
-  <div id="slides"></div>
-  <div class="vignette"></div>
-  <div class="grain"></div>
-  <div id="progress-row"></div>
-  <div id="tapzone"></div>
-  <div id="muteHint">TAP TO ADVANCE</div>
-  <button type="button" id="backBtn">← 名簿へ戻る</button>
-  <div id="startcard">
-    <div class="st-eyebrow">STAGE PLAY TEASER</div>
-    <div class="st-title">黄昏の<span class="accent">仮想戦争</span></div>
-    <div class="st-desc">ver.1 ― 王道スタンダード版</div>
-    <button id="startBtn">▶ &nbsp; START</button>
+
+  <div id="visitor-pass" class="pass-overlay" role="dialog" aria-labelledby="pass-title">
+    <div class="pass-card">
+      <div class="pass-top">
+        <span>SNG // SELF NEXAS GUARD</span>
+        <span>TEMPORARY ID</span>
+      </div>
+      <div class="pass-body">
+        <div class="pass-photo">
+          <img src="images/logo-sng-id.jpg" alt="SNG">
+          <span>VISITOR</span>
+        </div>
+        <div class="pass-info">
+          <p class="pass-kicker" id="pass-title">臨時捜査官 身分証</p>
+          <p class="pass-name">来場者</p>
+          <p class="pass-role">SNG部隊一課 臨時捜査官</p>
+          <dl class="pass-fields">
+            <div><dt>ID</dt><dd id="visitor-id">SNG-2084-0000</dd></div>
+            <div><dt>CLEARANCE</dt><dd>FESTIVAL</dd></div>
+            <div><dt>STATUS</dt><dd>ACTIVE</dd></div>
+          </dl>
+          <p class="pass-note">この番号は入場時に発行されます。劇中ではあなたもSNGの一員です。</p>
+        </div>
+      </div>
+      <button type="button" id="enter-btn" class="pass-btn">認証して機密調査ファイルにアクセスする</button>
+    </div>
   </div>
-</div>
+
+<div class="container">
+    <header>
+      <h1 class="title">黄昏の仮想戦争</h1>
+      <div class="title-banner">
+        <img src="images/banner.jpg" alt="サイバーバトル 黄昏の仮想戦争">
+      </div>
+      <div class="teaser-row">
+        <a class="teaser-btn" href="trailer.html">▶ 予告映像を見る</a>
+      </div>
+
+      <div class="synopsis">
+        <h2>// MISSION BRIEFING — あらすじ</h2>
+        <p>
+          2084年、日本。VR技術の進歩により人々が仮想世界「ネクサス」へと生活の拠点を移し始めた時代。<br>
+          急速に拡大するサイバー犯罪から市民を守るため立ち上がったのは、治安維持部隊「SNG（Self NEXAS Guard）」であった。<br>
+          ある日、謎の犯人による不審な事件が発生。調査を進める捜査官たちの前に現れたのは、国家や軍を巻き込む巨大な陰謀の影だった。正義とは何か、そして仮想世界に隠された真実とは——。
+        </p>
+      </div>
+    </header>
+
+        <section class="character-section">
+      <h2 class="section-title">PERSONNEL ROSTER</h2>
+      <p class="section-sub">FORCE STRUCTURE // CLASSIFIED // FOR AUTHORIZED USE ONLY</p>
+      <p class="visitor-badge">YOUR ID // <span id="visitor-badge">SNG-2084-----</span></p>
+
+
+      <div class="unit-block">
+        <div class="unit-head">
+          <span class="unit-code">UNIT-01</span>
+          <span class="unit-name">SNG部隊一課</span>
+          <span class="unit-count">4 OPERATORS</span>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-top"><span>SNG / 1st DIV</span><span>ID-01 // ALPHA</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/マテバ_1.jpg" alt="マテバ ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/マテバ_2.jpg" alt="マテバ ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">AGENT</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-sng.jpg" alt="SNG部隊一課">マテバ</div>
+                <div class="char-role">SNG部隊一課 捜査官</div>
+                <p class="char-comment">「ルーキー扱いすんな！やる時は見せてやるぜ！」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-top"><span>SNG / 1st DIV</span><span>ID-02 // VETERAN</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/アリサカ_1.jpg" alt="アリサカ ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/アリサカ_2.jpg" alt="アリサカ ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">SENIOR</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-sng.jpg" alt="SNG部隊一課">アリサカ</div>
+                <div class="char-role">SNG部隊一課 捜査官（ベテラン）</div>
+                <p class="char-comment">「容赦はしない。正義のために敵を排除する。」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-top"><span>SNG / 1st DIV</span><span>ID-03 // ROOKIE</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/スギウラ_1.jpg" alt="スギウラ ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/スギウラ_2.jpg" alt="スギウラ ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">ROOKIE</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-sng.jpg" alt="SNG部隊一課">スギウラ</div>
+                <div class="char-role">SNG部隊一課 新人捜査官</div>
+                <p class="char-comment">「すみません遅れました！精一杯頑張ります！」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-top"><span>SNG / 1st DIV</span><span>ID-00 // CHIEF</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/課長_1.jpg" alt="課長 ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/課長_2.jpg" alt="課長 ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">CHIEF</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-sng.jpg" alt="SNG部隊一課">課長</div>
+                <div class="char-role">SNG部隊一課 責任者</div>
+                <p class="char-comment">「生きて帰ってこい。ミーティングに遅れるなよ。」</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="unit-block intel">
+        <div class="unit-head">
+          <span class="unit-code">UNIT-06</span>
+          <span class="unit-name">第6情報課部隊</span>
+          <span class="unit-count">4 OPERATORS</span>
+        </div>
+        <div class="card-grid">
+          <div class="card intel">
+            <div class="card-top"><span>INTEL / 6th</span><span>ID-N // NAMBU</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/ナンブ_1.jpg" alt="ナンブ ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/ナンブ_2.jpg" alt="ナンブ ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">LEAD</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-intel.jpg" alt="第6情報課部隊">ナンブ</div>
+                <div class="char-role">第6情報課部隊</div>
+                <p class="char-comment">「正義など、都合のいい言葉にすぎん。」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card intel">
+            <div class="card-top"><span>INTEL / 6th</span><span>LT-D</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/少尉_1.jpg" alt="少尉 ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/少尉_2.jpg" alt="少尉 ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">LT</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-intel.jpg" alt="第6情報課部隊">少尉</div>
+                <div class="char-role">第6情報課部隊 少尉</div>
+                <p class="char-comment">「命令は絶対だ。直ちに展開しろ。」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card intel">
+            <div class="card-top"><span>INTEL / 6th</span><span>SUB-A</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/ナンブ部下A_1.jpg" alt="ナンブ部下A ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/ナンブ部下A_2.jpg" alt="ナンブ部下A ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">SQUAD</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-intel.jpg" alt="第6情報課部隊">ナンブ部下A</div>
+                <div class="char-role">第6情報課部隊</div>
+                <p class="char-comment">「了解。目標を捕捉する。」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card intel">
+            <div class="card-top"><span>INTEL / 6th</span><span>SUB-B</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/ナンブ部下B_1.jpg" alt="ナンブ部下B ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/ナンブ部下B_2.jpg" alt="ナンブ部下B ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">SQUAD</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-intel.jpg" alt="第6情報課部隊">ナンブ部下B</div>
+                <div class="char-role">第6情報課部隊</div>
+                <p class="char-comment">「後方を固めた。いつでも動ける。」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card intel">
+            <div class="card-top"><span>INTEL / 6th</span><span>SUB-E</span></div>
+
+          <div class="card intel">
+            <div class="card-top"><span>INTEL / 6th</span><span>SUB-F</span></div>
+
+        </div>
+      </div>
+
+      <div class="unit-block hostile">
+        <div class="unit-head">
+          <span class="unit-code">OPFOR</span>
+          <span class="unit-name">イースタシア連邦</span>
+          <span class="unit-count">4 HOSTILES</span>
+        </div>
+        <div class="card-grid">
+          <div class="card hostile">
+            <div class="card-top"><span>EASTASIA</span><span>OPFOR-A</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/連邦の刺客A_1.jpg" alt="連邦の刺客A ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/連邦の刺客A_2.jpg" alt="連邦の刺客A ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">ENEMY</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-east.jpg" alt="イースタシア連邦">連邦の刺客A</div>
+                <div class="char-role">イースタシア連邦</div>
+                <p class="char-comment">「排除する。それが仕事だ。」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card hostile">
+            <div class="card-top"><span>EASTASIA</span><span>OPFOR-B</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/連邦の刺客B_1.jpg" alt="連邦の刺客B ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/連邦の刺客B_2.jpg" alt="連邦の刺客B ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">ENEMY</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-east.jpg" alt="イースタシア連邦">連邦の刺客B</div>
+                <div class="char-role">イースタシア連邦</div>
+                <p class="char-comment">「逃げ場はない。包囲は完了した。」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card hostile">
+            <div class="card-top"><span>EASTASIA</span><span>UNK-B</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/謎の人物B_1.jpg" alt="謎の人物B ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/謎の人物B_2.jpg" alt="謎の人物B ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">UNKNOWN</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-east.jpg" alt="イースタシア連邦">謎の人物B</div>
+                <div class="char-role">イースタシア連邦</div>
+                <p class="char-comment">「追跡を続ける。離脱は許されない。」</p>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="card hostile">
+            <div class="card-top"><span>EASTASIA</span><span>FILE CLOSED</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/自殺したスパイ_1.jpg" alt="自殺したスパイ ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/自殺したスパイ_2.jpg" alt="自殺したスパイ ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">CLOSED</span></div>
+                <div class="char-name"><img class="name-logo" src="images/logo-east.jpg" alt="イースタシア連邦">自殺したスパイ</div>
+                <div class="char-role">イースタシア連邦</div>
+                <p class="char-comment">「……このファイルは、ここで途切れている。」</p>
+              </div>
+            </div>
+          </div>
+
+      </div>
+
+      <div class="unit-block support">
+        <div class="unit-head">
+          <span class="unit-code">MISC</span>
+          <span class="unit-name">その他 / サポート</span>
+          <span class="unit-count">7 FILES</span>
+        </div>
+        <div class="card-grid">
+          <div class="card support">
+            <div class="card-top"><span>UNKNOWN</span><span>UNK-A</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/謎の人物A_1.jpg" alt="謎の人物A ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/謎の人物A_2.jpg" alt="謎の人物A ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">UNKNOWN</span></div>
+                <div class="char-name">謎の人物A</div>
+                <div class="char-role">所属不明</div>
+                <p class="char-comment">「……この先に、答えがあるのか？」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card support">
+            <div class="card-top"><span>SEC / WATCH</span><span>G-A</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/警備員A_1.jpg" alt="警備員A ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/警備員A_2.jpg" alt="警備員A ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">GUARD</span></div>
+                <div class="char-name">警備員A</div>
+                <div class="char-role">警備員</div>
+                <p class="char-comment">「異常なし。引き続き警戒する。」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card support">
+            <div class="card-top"><span>SEC / WATCH</span><span>G-B</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/警備員B_1.jpg" alt="警備員B ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/警備員B_2.jpg" alt="警備員B ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">GUARD</span></div>
+                <div class="char-name">警備員B</div>
+                <div class="char-role">警備員</div>
+                <p class="char-comment">「侵入経路は封鎖済みだ。」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card support">
+            <div class="card-top"><span>SEC / WATCH</span><span>G-C</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><img src="images/chars/警備員C_1.jpg" alt="警備員C ver.1"><span>ver.1</span></div><div class="photo-box"><img src="images/chars/警備員C_2.jpg" alt="警備員C ver.2"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">GUARD</span></div>
+                <div class="char-name">警備員C</div>
+                <div class="char-role">警備員</div>
+                <p class="char-comment">「報告を上げる。待機を維持せよ。」</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card support">
+            <div class="card-top"><span>SNG / SYSTEM</span><span>AI-01 // NEMO</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><span>ver.1</span></div><div class="photo-box"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">VOICE</span></div>
+                <div class="char-name">ネモ（声）</div>
+                <div class="char-role">SNG サポートAI</div>
+                <p class="char-comment">「はいはーい！みなさんのバックアップはお任せください！」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card support">
+            <div class="card-top"><span>NEXAS / CORE</span><span>SYS-00</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><span>ver.1</span></div><div class="photo-box"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">VOICE</span></div>
+                <div class="char-name">ネクサス（声）</div>
+                <div class="char-role">仮想世界ネクサス</div>
+                <p class="char-comment">「接続を確認。ようこそ、ネクサスへ。」</p>
+              </div>
+            </div>
+          </div>
+          <div class="card support">
+            <div class="card-top"><span>OPS / BRIEF</span><span>NAR-00</span></div>
+            <div class="card-body">
+              <div class="photo-container"><div class="photo-box"><span>ver.1</span></div><div class="photo-box"><span>ver.2</span></div></div>
+            <div class="char-info">
+                <div class="char-meta"><span class="tag">NARRATION</span></div>
+                <div class="char-name">ナレーション</div>
+                <div class="char-role">記録・進行</div>
+                <p class="char-comment">「2084年。戦争は、もう現実の外で始まっていた。」</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
 
 <script>
-const IMAGES = {
-  "アリサカ1.jpg": "images/trailer/アリサカ1.jpg",
-  "アリサカ2.jpg": "images/trailer/アリサカ2.jpg",
-  "マテバ1.jpg": "images/trailer/マテバ1.jpg",
-  "マテバ２.jpg": "images/trailer/マテバ２.jpg",
-  "スギウラ1.jpg": "images/trailer/スギウラ1.jpg",
-  "スギウラ2.jpg": "images/trailer/スギウラ2.jpg",
-  "課長1.jpg": "images/trailer/課長1.jpg",
-  "課長２.jpg": "images/trailer/課長２.jpg",
-  "ナンブ1.jpg": "images/trailer/ナンブ1.jpg",
-  "ナンブ2.jpg": "images/trailer/ナンブ2.jpg",
-  "少尉1.jpg": "images/trailer/少尉1.jpg",
-  "少尉2.jpg": "images/trailer/少尉2.jpg"
-};
-(function(){
-  const slides = [
-    {"type":"title","dur":2600,"eyebrow":"PROLOGUE","main":"2084年、仮想世界<br><span class=\"accent\">ネクサス。</span>","sub":"善良な市民を守る者たちがいる――"},
-    {"type":"photo","dur":2800,"img":"アリサカ1.jpg","kb":"a","en":"ARISAKA","jp":"「私が君のいうアリサカだ。」"},
-    {"type":"photo","dur":2600,"img":"アリサカ2.jpg","kb":"b","en":"ARISAKA","jp":"「私は、私のためにだけ戦う。」"},
-    {"type":"photo","dur":2800,"img":"マテバ1.jpg","kb":"c","en":"MATEBA","jp":"「邪魔すんな！今先輩と喋ってんだろうが！」"},
-    {"type":"photo","dur":2600,"img":"マテバ２.jpg","kb":"a","en":"MATEBA","jp":"「人を守るための正義の戦いだ！」"},
-    {"type":"title","dur":2000,"eyebrow":"AND","main":"駆け出しの<span class=\"accent\">新人。</span>"},
-    {"type":"photo","dur":2600,"img":"スギウラ1.jpg","kb":"b","en":"SUGIURA","jp":"「僕が行きます……！」"},
-    {"type":"photo","dur":2400,"img":"スギウラ2.jpg","kb":"c","en":"SUGIURA","jp":"「僕もそうやわじゃありません。」"},
-    {"type":"photo","dur":2600,"img":"課長1.jpg","kb":"a","en":"KACHOU","jp":"「私は自分の仕事をしただけにすぎんよ。」"},
-    {"type":"photo","dur":2400,"img":"課長２.jpg","kb":"b","en":"KACHOU","jp":"「お前のやるべきことを成し遂げろよ。」"},
-    {"type":"title","dur":2000,"eyebrow":"BUT","main":"立ちはだかる<span class=\"accent\">もう一つの部隊。</span>"},
-    {"type":"photo","dur":3000,"img":"ナンブ1.jpg","kb":"c","en":"NANBU","jp":"「見つけたぞ！裏切り者！愚弄者！反逆者！」"},
-    {"type":"photo","dur":2600,"img":"ナンブ2.jpg","kb":"a","en":"NANBU","jp":"「昨日の敵は今日のマブダチ！さぁ、行こう相棒！」"},
-    {"type":"photo","dur":2400,"img":"少尉1.jpg","kb":"b","en":"SHOUI","jp":"「かっこいい！！麗しい！！素晴らしい！！」"},
-    {"type":"photo","dur":2400,"img":"少尉2.jpg","kb":"c","en":"SHOUI","jp":"「あなたにはまだ、成すべきことが残っている。」"},
-    {"type":"title","dur":2400,"eyebrow":"FINALLY","main":"友情、裏切り、<br>そして<span class=\"accent\">正義</span>とは。"},
-    {"type":"finale","dur":99999,"eyebrow":"COMING SOON","main":"真の敵は誰か、<span class=\"accent\">見極めろ。</span>","foot":"劇「黄昏の仮想戦争」　公演日時・会場は決定次第お知らせします"}
-  ];
-  const slidesEl = document.getElementById('slides');
-  const progRow = document.getElementById('progress-row');
-  let built = [];
-  slides.forEach((s) => {
-    const seg = document.createElement('div');
-    seg.className = 'seg';
-    seg.innerHTML = '<i></i>';
-    progRow.appendChild(seg);
-    const el = document.createElement('div');
-    el.className = 'slide';
-    if (s.type === 'title' || s.type === 'finale'){
-      el.innerHTML = `
-        <div class="title-card ${s.type==='finale'?'finale':''}">
-          <div class="tc-inner">
-            <div class="tc-eyebrow">${s.eyebrow||''}</div>
-            <div class="tc-rule"></div>
-            <div class="tc-main">${s.main||''}</div>
-            ${s.sub ? `<div class="tc-sub">${s.sub}</div>` : ''}
-            ${s.foot ? `<div class="tc-foot">${s.foot}</div>` : ''}
-          </div>
-        </div>`;
-    } else {
-      el.classList.add('kb-' + (s.kb||'a'));
-      el.innerHTML = `
-        <div class="photo-wrap">
-          <img src="${IMAGES[s.img]}" alt="">
-          <div class="photo-shade"></div>
-        </div>
-        <div class="cap-wrap">
-          <span class="cap-line"></span>
-          <div class="cap-en">${s.en||''}</div>
-          <div class="cap-jp">${s.jp||''}</div>
-        </div>`;
-    }
-    slidesEl.appendChild(el);
-    built.push(el);
-  });
-  const segs = progRow.querySelectorAll('.seg');
-  let idx = -1, timer = null, playing = false;
-  function clearActive(){ built.forEach(el => el.classList.remove('active')); }
-  function goTo(i){
-    if (timer) clearTimeout(timer);
-    if (i >= slides.length){ i = slides.length - 1; }
-    idx = i;
-    clearActive();
-    built[idx].classList.add('active');
-    segs.forEach((seg, j) => {
-      seg.classList.remove('now');
-      const bar = seg.querySelector('i');
-      bar.style.animation = 'none';
-      if (j < idx){ seg.classList.add('done'); bar.style.width='100%'; }
-      else { seg.classList.remove('done'); bar.style.width='0%'; }
-    });
-    const s = slides[idx];
-    if (s.type !== 'finale'){
-      const seg = segs[idx];
-      seg.classList.add('now');
-      const bar = seg.querySelector('i');
-      requestAnimationFrame(()=>{ bar.style.animation = `fillbar ${s.dur}ms linear forwards`; });
-      timer = setTimeout(()=> goTo(idx+1), s.dur);
-    } else {
-      segs[idx].classList.add('now','done');
-      segs[idx].querySelector('i').style.width='100%';
-    }
+(function () {
+  function makeId() {
+    var n = Math.floor(1000 + Math.random() * 9000);
+    return "SNG-2084-" + String(n);
   }
-  function start(){
-    if (playing) return;
-    playing = true;
-    document.getElementById('startcard').style.display = 'none';
-    goTo(0);
-  }
-  document.getElementById('startBtn').addEventListener('click', start);
-  document.getElementById('tapzone').addEventListener('click', () => {
-    if (!playing) return;
-    if (idx < slides.length - 1){ goTo(idx + 1); }
-    else { goTo(0); }
-  });
-  document.getElementById('backBtn').addEventListener('click', () => {
-    if (document.referrer) history.back();
-    else location.href = 'twilight-virtual-war.html';
+  var overlay = document.getElementById("visitor-pass");
+  var idEl = document.getElementById("visitor-id");
+  var btn = document.getElementById("enter-btn");
+  if (!overlay || !idEl || !btn) return;
+  var id = makeId();
+  idEl.textContent = id;
+  document.body.classList.add("pass-locked");
+  btn.addEventListener("click", function () {
+    overlay.classList.add("is-off");
+    document.body.classList.remove("pass-locked");
+    var badge = document.getElementById("visitor-badge");
+    if (badge) badge.textContent = id;
   });
 })();
 </script>
+
 </body>
 </html>
