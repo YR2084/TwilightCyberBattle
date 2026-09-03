@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>黄昏の仮想戦争 トレーラー ver1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Noto+Sans+JP:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a0908;
+  --cream:#eee7d6;
+  --gold:#b8912f;
+  --gold-bright:#d9b45a;
+  --wine:#7a1f22;
+  --wine-bright:#a53232;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{
+  margin:0; padding:0; height:100%; width:100%;
+  background:#000; overflow:hidden;
+  font-family:'Noto Sans JP', sans-serif;
+  color:var(--cream);
+  user-select:none;
+}
+#stage{
+  position:relative;
+  width:100%; height:100vh; height:100dvh;
+  background:#000;
+  overflow:hidden;
+}
+.bar{
+  position:absolute; left:0; right:0; height:6.4vh; background:#000; z-index:40;
+  pointer-events:none;
+}
+.bar.top{top:0; border-bottom:1px solid rgba(184,145,47,0.35);}
+.bar.bottom{bottom:0; border-top:1px solid rgba(184,145,47,0.35);}
+.vignette{
+  position:absolute; inset:0; z-index:30; pointer-events:none;
+  background:radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%);
+}
+.grain{
+  position:absolute; inset:0; z-index:31; pointer-events:none; opacity:0.10; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.slide{ position:absolute; inset:0; opacity:0; transition:opacity 900ms ease; z-index:1; }
+.slide.active{ opacity:1; z-index:2; }
+.slide .photo-wrap{ position:absolute; inset:0; overflow:hidden; background:#000; }
+.slide img{
+  position:absolute; top:50%; left:50%;
+  height:118%; width:118%;
+  object-fit:cover;
+  transform:translate(-50%,-50%) scale(1.06);
+  filter:saturate(0.86) contrast(1.08) brightness(0.86) sepia(0.08);
+}
+.slide.active img{ animation:kb 6.6s ease-out forwards; }
+.slide.kb-a.active img{ animation-name:kbA; }
+.slide.kb-b.active img{ animation-name:kbB; }
+.slide.kb-c.active img{ animation-name:kbC; }
+@keyframes kbA{ 0%{ transform:translate(-50%,-50%) scale(1.12); } 100%{ transform:translate(-52%,-46%) scale(1.28); } }
+@keyframes kbB{ 0%{ transform:translate(-50%,-50%) scale(1.28); } 100%{ transform:translate(-48%,-54%) scale(1.10); } }
+@keyframes kbC{ 0%{ transform:translate(-50%,-50%) scale(1.1); } 100%{ transform:translate(-46%,-50%) scale(1.24); } }
+.photo-shade{
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.05) 60%, rgba(0,0,0,0.35) 100%);
+}
+.cap-wrap{ position:absolute; left:0; right:0; bottom:11vh; z-index:5; padding:0 7vw; text-align:left; }
+.cap-line{
+  display:block; height:2px; width:11vw; background:var(--gold-bright);
+  margin-bottom:1.6vh; transform:scaleX(0); transform-origin:left; animation:grow 700ms ease forwards 380ms;
+}
+@keyframes grow{ to{ transform:scaleX(1); } }
+.cap-en{
+  font-family:'Noto Sans JP', sans-serif; font-weight:300; letter-spacing:0.32em; font-size:2.6vw;
+  color:var(--gold-bright); opacity:0; text-transform:uppercase;
+  animation:fadeUp 700ms ease forwards 260ms;
+}
+.cap-jp{
+  font-family:'Shippori Mincho B1', serif; font-weight:800;
+  font-size:7.6vw; line-height:1.15; margin-top:0.8vh;
+  color:var(--cream); text-shadow:0 2px 18px rgba(0,0,0,0.7);
+  opacity:0; animation:fadeUp 800ms ease forwards 460ms;
+}
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+.title-card{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  background:#050403; text-align:center; padding:0 8vw;
+}
+.title-card::before{
+  content:""; position:absolute; inset:0;
+  background: radial-gradient(ellipse at 50% 40%, rgba(122,31,34,0.20), transparent 60%);
+}
+.tc-inner{ position:relative; z-index:2; }
+.tc-eyebrow{
+  font-family:'Noto Sans JP',sans-serif; font-weight:300; letter-spacing:0.5em;
+  font-size:3.1vw; color:var(--gold); opacity:0; animation:fadeUp 900ms ease forwards 200ms;
+}
+.tc-main{
+  font-family:'Shippori Mincho B1', serif; font-weight:800;
+  font-size:11vw; line-height:1.25; color:var(--cream); margin-top:2.2vh;
+  opacity:0; animation:fadeUp 1000ms ease forwards 450ms;
+}
+.tc-main .accent{ color:var(--wine-bright); }
+.tc-sub{
+  margin-top:2.6vh; font-family:'Noto Sans JP',sans-serif; font-weight:300;
+  font-size:3.4vw; letter-spacing:0.14em; color:var(--cream); opacity:0.85;
+  opacity:0; animation:fadeUp 900ms ease forwards 750ms;
+}
+.tc-rule{
+  width:22vw; height:1px; background:linear-gradient(to right, transparent, var(--gold-bright), transparent);
+  margin:3vh auto 0; opacity:0; animation:fadeUp 900ms ease forwards 650ms;
+}
+.finale .tc-main{ font-size:9.5vw; }
+.finale .tc-foot{
+  margin-top:5vh; font-family:'Noto Sans JP',sans-serif; font-weight:400;
+  font-size:3.1vw; letter-spacing:0.08em; color:var(--gold-bright); opacity:0;
+  animation:fadeUp 900ms ease forwards 1000ms;
+}
+#progress-row{
+  position:absolute; left:7vw; right:7vw; bottom:5.6vh; z-index:40;
+  display:flex; gap:1.4vw;
+}
+.seg{ flex:1; height:2px; background:rgba(238,231,214,0.22); position:relative; overflow:hidden; border-radius:1px; }
+.seg i{ position:absolute; left:0; top:0; bottom:0; width:0%; background:var(--gold-bright); display:block; }
+.seg.done i{ width:100%; }
+.seg.now i{ animation:fillbar linear forwards; }
+@keyframes fillbar{ from{width:0%;} to{width:100%;} }
+#tapzone{ position:absolute; inset:0; z-index:50; }
+#startcard{
+  position:absolute; inset:0; z-index:100; background:#050403;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  padding:0 9vw;
+}
+#startcard .st-eyebrow{ font-size:3.2vw; letter-spacing:0.5em; color:var(--gold); font-weight:300; }
+#startcard .st-title{ font-family:'Shippori Mincho B1',serif; font-weight:800; font-size:10vw; margin:3vh 0 1vh; }
+#startcard .st-title .accent{ color:var(--wine-bright); }
+#startcard .st-desc{ font-size:3.2vw; opacity:0.75; letter-spacing:0.05em; margin-bottom:5vh; }
+
+#startBtn, #photoBtn{
+  border:1px solid var(--gold-bright); color:var(--gold-bright); background:transparent;
+  font-family:'Noto Sans JP',sans-serif; font-size:3.6vw; letter-spacing:0.3em;
+  padding:2.2vh 8vw; border-radius:2px; cursor:pointer;
+}
+#photoBtn{ margin-top:1.6vh; letter-spacing:0.18em; font-size:3.1vw; opacity:0.85; }
+#startBtn:active, #photoBtn:active{ background:rgba(217,180,90,0.12); }
+.start-actions{ display:flex; flex-direction:column; align-items:center; }
+#teaserWrap{
+  position:absolute; inset:0; z-index:60; display:none; background:#000;
+}
+#teaserWrap.on{ display:block; }
+#teaserVideo{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#000;
+}
+#videoEnd{
+  position:absolute; inset:0; z-index:70; display:none;
+  align-items:center; justify-content:center; flex-direction:column;
+  background:rgba(0,0,0,0.62); text-align:center; gap:1.4vh;
+}
+#videoEnd.on{ display:flex; }
+#videoEnd button{
+  border:1px solid var(--gold-bright); color:var(--gold-bright); background:transparent;
+  font-family:'Noto Sans JP',sans-serif; font-size:3.2vw; letter-spacing:0.18em;
+  padding:1.6vh 6vw; cursor:pointer;
+}
+#muteHint{
+  position:absolute; top:2.4vh; right:5vw; z-index:41; font-size:2.6vw; color:rgba(238,231,214,0.55);
+  letter-spacing:0.1em; pointer-events:none;
+}
+@media (min-width:640px){
+  .cap-jp{ font-size:3.4rem; }
+  .cap-en{ font-size:0.9rem; }
+  .tc-main{ font-size:3.6rem; }
+  .tc-eyebrow{ font-size:1rem; }
+  .tc-sub{ font-size:1.1rem; }
+  #startcard .st-title{ font-size:3.4rem; }
+  #startcard .st-eyebrow, #startcard .st-desc{ font-size:1rem; }
+  #startBtn, #photoBtn, #videoEnd button{ font-size:1.1rem; padding:1.4vh 3vw; }
+  .finale .tc-main{ font-size:3rem; }
+  .finale .tc-foot{ font-size:1rem; }
+}
+
+#backBtn{
+  position:absolute; top:1.8vh; left:5vw; z-index:120;
+  border:1px solid rgba(217,180,90,0.7); color:var(--gold-bright); background:transparent;
+  font-family:'Noto Sans JP',sans-serif; font-size:2.6vw; letter-spacing:0.18em;
+  padding:0.8vh 2.4vw; cursor:pointer;
+}
+@media (min-width:640px){
+  #backBtn{ font-size:0.85rem; padding:0.6vh 1.2vw; }
+}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="bar top"></div>
+  <div class="bar bottom"></div>
+  <div id="slides"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+  <div id="progress-row"></div>
+  <div id="tapzone"></div>
+  <div id="muteHint">TAP TO ADVANCE</div>
+  <button type="button" id="backBtn">← 名簿へ戻る</button>
+  <div id="teaserWrap">
+    <video id="teaserVideo" src="videos/809660530.275244.mp4" playsinline></video>
+    <div id="videoEnd">
+      <button type="button" id="replayBtn">もう一度再生</button>
+      <button type="button" id="toPhotoBtn">フォトトレーラーへ</button>
+    </div>
+  </div>
+  <div id="startcard">
+    <div class="st-eyebrow">STAGE PLAY TEASER</div>
+    <div class="st-title">黄昏の<span class="accent">仮想戦争</span></div>
+    <div class="st-desc">予告映像 / フォトトレーラー</div>
+    <div class="start-actions">
+      <button id="startBtn">▶ 予告映像を再生</button>
+      <button id="photoBtn">フォトトレーラー</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const IMAGES = {
+  "アリサカ1.jpg": "images/trailer/アリサカ_1.jpg",
+  "アリサカ2.jpg": "images/trailer/アリサカ_2.jpg",
+  "マテバ1.jpg": "images/trailer/マテバ_1.jpg",
+  "マテバ２.jpg": "images/trailer/マテバ_2.jpg",
+  "スギウラ1.jpg": "images/trailer/スギウラ_1.jpg",
+  "スギウラ2.jpg": "images/trailer/スギウラ_2.jpg",
+  "課長1.jpg": "images/trailer/課長_1.jpg",
+  "課長２.jpg": "images/trailer/課長_2.jpg",
+  "ナンブ1.jpg": "images/trailer/ナンブ_1.jpg",
+  "ナンブ2.jpg": "images/trailer/ナンブ_2.jpg",
+  "少尉1.jpg": "images/trailer/少尉_1.jpg",
+  "少尉2.jpg": "images/trailer/少尉_2.jpg"
+};
+(function(){
+  const slides = [{"type": "title", "dur": 2600, "eyebrow": "PROLOGUE", "main": "2084年、仮想世界<br><span class=\"accent\">ネクサス。</span>", "sub": "善良な市民を守る者たちがいる――"}, {"type": "photo", "dur": 2800, "img": "アリサカ1.jpg", "kb": "a", "en": "ARISAKA", "jp": "「私が君のいうアリサカだ。」"}, {"type": "photo", "dur": 2600, "img": "アリサカ2.jpg", "kb": "b", "en": "ARISAKA", "jp": "「私は、私のためにだけ戦う。」"}, {"type": "photo", "dur": 2800, "img": "マテバ1.jpg", "kb": "c", "en": "MATEBA", "jp": "「邪魔すんな！今先輩と喋ってんだろうが！」"}, {"type": "photo", "dur": 2600, "img": "マテバ２.jpg", "kb": "a", "en": "MATEBA", "jp": "「人を守るための正義の戦いだ！」"}, {"type": "title", "dur": 2000, "eyebrow": "AND", "main": "駆け出しの<span class=\"accent\">新人。</span>"}, {"type": "photo", "dur": 2600, "img": "スギウラ1.jpg", "kb": "b", "en": "SUGIURA", "jp": "「僕が行きます……！」"}, {"type": "photo", "dur": 2400, "img": "スギウラ2.jpg", "kb": "c", "en": "SUGIURA", "jp": "「僕もそうやわじゃありません。」"}, {"type": "photo", "dur": 2600, "img": "課長1.jpg", "kb": "a", "en": "KACHOU", "jp": "「私は自分の仕事をしただけにすぎんよ。」"}, {"type": "photo", "dur": 2400, "img": "課長２.jpg", "kb": "b", "en": "KACHOU", "jp": "「お前のやるべきことを成し遂げろよ。」"}, {"type": "title", "dur": 2000, "eyebrow": "BUT", "main": "立ちはだかる<span class=\"accent\">もう一つの部隊。</span>"}, {"type": "photo", "dur": 3000, "img": "ナンブ1.jpg", "kb": "c", "en": "NANBU", "jp": "「見つけたぞ！裏切り者！愚弄者！反逆者！」"}, {"type": "photo", "dur": 2600, "img": "ナンブ2.jpg", "kb": "a", "en": "NANBU", "jp": "「昨日の敵は今日のマブダチ！さぁ、行こう相棒！」"}, {"type": "photo", "dur": 2400, "img": "少尉1.jpg", "kb": "b", "en": "SHOUI", "jp": "「かっこいい！！麗しい！！素晴らしい！！」"}, {"type": "photo", "dur": 2400, "img": "少尉2.jpg", "kb": "c", "en": "SHOUI", "jp": "「あなたにはまだ、成すべきことが残っている。」"}, {"type": "title", "dur": 2400, "eyebrow": "FINALLY", "main": "友情、裏切り、<br>そして<span class=\"accent\">正義</span>とは。"}, {"type": "finale", "dur": 99999, "eyebrow": "COMING SOON", "main": "真の敵は誰か、<span class=\"accent\">見極めろ。</span>", "foot": "劇「黄昏の仮想戦争」　公演日時・会場は決定次第お知らせします"}];
+  const slidesEl = document.getElementById('slides');
+  const progRow = document.getElementById('progress-row');
+  let built = [];
+  slides.forEach((s, i) => {
+    const seg = document.createElement('div');
+    seg.className = 'seg';
+    seg.innerHTML = '<i></i>';
+    progRow.appendChild(seg);
+    const el = document.createElement('div');
+    el.className = 'slide';
+    if (s.type === 'title' || s.type === 'finale'){
+      el.innerHTML = `
+        <div class="title-card ${s.type==='finale'?'finale':''}">
+          <div class="tc-inner">
+            <div class="tc-eyebrow">${s.eyebrow||''}</div>
+            <div class="tc-rule"></div>
+            <div class="tc-main">${s.main||''}</div>
+            ${s.sub ? `<div class="tc-sub">${s.sub}</div>` : ''}
+            ${s.foot ? `<div class="tc-foot">${s.foot}</div>` : ''}
+          </div>
+        </div>`;
+    } else {
+      el.classList.add('kb-' + (s.kb||'a'));
+      el.innerHTML = `
+        <div class="photo-wrap">
+          <img src="${IMAGES[s.img]}" alt="">
+          <div class="photo-shade"></div>
+        </div>
+        <div class="cap-wrap">
+          <span class="cap-line"></span>
+          <div class="cap-en">${s.en||''}</div>
+          <div class="cap-jp">${s.jp||''}</div>
+        </div>`;
+    }
+    slidesEl.appendChild(el);
+    built.push(el);
+  });
+  const segs = progRow.querySelectorAll('.seg');
+  let idx = -1, timer = null, playing = false;
+  function clearActive(){ built.forEach(el => el.classList.remove('active')); }
+  function goTo(i){
+    if (timer) clearTimeout(timer);
+    if (i >= slides.length){ i = slides.length - 1; }
+    idx = i;
+    clearActive();
+    built[idx].classList.add('active');
+    segs.forEach((seg, j) => {
+      seg.classList.remove('now');
+      const bar = seg.querySelector('i');
+      bar.style.animation = 'none';
+      if (j < idx){ seg.classList.add('done'); bar.style.width='100%'; }
+      else { seg.classList.remove('done'); bar.style.width='0%'; }
+    });
+    const s = slides[idx];
+    if (s.type !== 'finale'){
+      const seg = segs[idx];
+      seg.classList.add('now');
+      const bar = seg.querySelector('i');
+      requestAnimationFrame(()=>{ bar.style.animation = `fillbar ${s.dur}ms linear forwards`; });
+      timer = setTimeout(()=> goTo(idx+1), s.dur);
+    } else {
+      segs[idx].classList.add('now','done');
+      segs[idx].querySelector('i').style.width='100%';
+    }
+  }
+  const videoWrap = document.getElementById('teaserWrap');
+  const video = document.getElementById('teaserVideo');
+  const videoEnd = document.getElementById('videoEnd');
+  function hideStart(){ document.getElementById('startcard').style.display = 'none'; }
+  function playVideo(){
+    if (playing) return;
+    hideStart();
+    videoEnd.classList.remove('on');
+    videoWrap.classList.add('on');
+    video.currentTime = 0;
+    video.play().catch(()=>{});
+  }
+  function start(){
+    if (playing) return;
+    playing = true;
+    video.pause();
+    videoWrap.classList.remove('on');
+    hideStart();
+    goTo(0);
+  }
+  document.getElementById('startBtn').addEventListener('click', playVideo);
+  document.getElementById('photoBtn').addEventListener('click', start);
+  document.getElementById('replayBtn').addEventListener('click', playVideo);
+  document.getElementById('toPhotoBtn').addEventListener('click', start);
+  video.addEventListener('ended', () => videoEnd.classList.add('on'));
+  document.getElementById('tapzone').addEventListener('click', () => {
+    if (!playing) return;
+    if (idx < slides.length - 1){ goTo(idx + 1); }
+    else { goTo(0); }
+  });
+  document.getElementById('backBtn').addEventListener('click', () => {
+    video.pause();
+    if (document.referrer) history.back();
+    else location.href = 'index.html';
+  });
+})();
+</script>
+</body>
+</html>
