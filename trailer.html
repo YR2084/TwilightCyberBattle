@@ -136,12 +136,33 @@ html,body{
 #startcard .st-title{ font-family:'Shippori Mincho B1',serif; font-weight:800; font-size:10vw; margin:3vh 0 1vh; }
 #startcard .st-title .accent{ color:var(--wine-bright); }
 #startcard .st-desc{ font-size:3.2vw; opacity:0.75; letter-spacing:0.05em; margin-bottom:5vh; }
-#startBtn{
+
+#startBtn, #photoBtn{
   border:1px solid var(--gold-bright); color:var(--gold-bright); background:transparent;
   font-family:'Noto Sans JP',sans-serif; font-size:3.6vw; letter-spacing:0.3em;
   padding:2.2vh 8vw; border-radius:2px; cursor:pointer;
 }
-#startBtn:active{ background:rgba(217,180,90,0.12); }
+#photoBtn{ margin-top:1.6vh; letter-spacing:0.18em; font-size:3.1vw; opacity:0.85; }
+#startBtn:active, #photoBtn:active{ background:rgba(217,180,90,0.12); }
+.start-actions{ display:flex; flex-direction:column; align-items:center; }
+#teaserWrap{
+  position:absolute; inset:0; z-index:8; display:none; background:#000;
+}
+#teaserWrap.on{ display:block; }
+#teaserVideo{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#000;
+}
+#videoEnd{
+  position:absolute; inset:0; z-index:12; display:none;
+  align-items:center; justify-content:center; flex-direction:column;
+  background:rgba(0,0,0,0.62); text-align:center; gap:1.4vh;
+}
+#videoEnd.on{ display:flex; }
+#videoEnd button{
+  border:1px solid var(--gold-bright); color:var(--gold-bright); background:transparent;
+  font-family:'Noto Sans JP',sans-serif; font-size:3.2vw; letter-spacing:0.18em;
+  padding:1.6vh 6vw; cursor:pointer;
+}
 #muteHint{
   position:absolute; top:2.4vh; right:5vw; z-index:41; font-size:2.6vw; color:rgba(238,231,214,0.55);
   letter-spacing:0.1em; pointer-events:none;
@@ -154,7 +175,7 @@ html,body{
   .tc-sub{ font-size:1.1rem; }
   #startcard .st-title{ font-size:3.4rem; }
   #startcard .st-eyebrow, #startcard .st-desc{ font-size:1rem; }
-  #startBtn{ font-size:1.1rem; padding:1.4vh 3vw; }
+  #startBtn, #photoBtn, #videoEnd button{ font-size:1.1rem; padding:1.4vh 3vw; }
   .finale .tc-main{ font-size:3rem; }
   .finale .tc-foot{ font-size:1rem; }
 }
@@ -181,11 +202,21 @@ html,body{
   <div id="tapzone"></div>
   <div id="muteHint">TAP TO ADVANCE</div>
   <button type="button" id="backBtn">← 名簿へ戻る</button>
+  <div id="teaserWrap">
+    <video id="teaserVideo" src="videos/teaser.mp4" playsinline></video>
+    <div id="videoEnd">
+      <button type="button" id="replayBtn">もう一度再生</button>
+      <button type="button" id="toPhotoBtn">フォトトレーラーへ</button>
+    </div>
+  </div>
   <div id="startcard">
     <div class="st-eyebrow">STAGE PLAY TEASER</div>
     <div class="st-title">黄昏の<span class="accent">仮想戦争</span></div>
-    <div class="st-desc">ver.1 ― 王道スタンダード版</div>
-    <button id="startBtn">▶ &nbsp; START</button>
+    <div class="st-desc">予告映像 / フォトトレーラー</div>
+    <div class="start-actions">
+      <button id="startBtn">▶ 予告映像を再生</button>
+      <button id="photoBtn">フォトトレーラー</button>
+    </div>
   </div>
 </div>
 
@@ -271,19 +302,38 @@ const IMAGES = {
       segs[idx].querySelector('i').style.width='100%';
     }
   }
+  const videoWrap = document.getElementById('teaserWrap');
+  const video = document.getElementById('teaserVideo');
+  const videoEnd = document.getElementById('videoEnd');
+  function hideStart(){ document.getElementById('startcard').style.display = 'none'; }
+  function playVideo(){
+    if (playing) return;
+    hideStart();
+    videoEnd.classList.remove('on');
+    videoWrap.classList.add('on');
+    video.currentTime = 0;
+    video.play().catch(()=>{});
+  }
   function start(){
     if (playing) return;
     playing = true;
-    document.getElementById('startcard').style.display = 'none';
+    video.pause();
+    videoWrap.classList.remove('on');
+    hideStart();
     goTo(0);
   }
-  document.getElementById('startBtn').addEventListener('click', start);
+  document.getElementById('startBtn').addEventListener('click', playVideo);
+  document.getElementById('photoBtn').addEventListener('click', start);
+  document.getElementById('replayBtn').addEventListener('click', playVideo);
+  document.getElementById('toPhotoBtn').addEventListener('click', start);
+  video.addEventListener('ended', () => videoEnd.classList.add('on'));
   document.getElementById('tapzone').addEventListener('click', () => {
     if (!playing) return;
     if (idx < slides.length - 1){ goTo(idx + 1); }
     else { goTo(0); }
   });
   document.getElementById('backBtn').addEventListener('click', () => {
+    video.pause();
     if (document.referrer) history.back();
     else location.href = 'index.html';
   });
