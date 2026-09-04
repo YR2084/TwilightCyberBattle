@@ -521,6 +521,9 @@
       justify-content: center;
       margin: 0 0 16px;
     }
+    .teaser-row { gap: 10px; flex-wrap: wrap; align-items: center; }
+    .vote-btn { opacity: 0.95; }
+
     .teaser-btn {
       display: inline-block;
       padding: 10px 18px;
@@ -579,10 +582,18 @@
         <img src="images/banner.jpg" alt="サイバーバトル 黄昏の仮想戦争">
       </div>
       <div class="teaser-row">
+        <!--
+          【投票URLの挿入ポイント】
+          下の href="#" を、投票フォームのURLに書き換えるだけで動作します。
+          例: href="https://forms.gle/xxxxxxxx"
+        -->
+        <a class="teaser-btn vote-btn" href="#" target="_blank" rel="noopener">投票する</a>
         <a class="teaser-btn" href="trailer.html">▶ 予告映像を見る</a>
       </div>
       <div class="site-nav">
         <a href="index.html">機密調査ファイル</a>
+        <!-- 【投票URLの挿入ポイント】 href="#" を投票フォームURLに変更 -->
+        <a href="#" target="_blank" rel="noopener">投票する</a>
         <a href="trailer.html">予告映像</a>
       </div>
 
